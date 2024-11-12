@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Sign In</title>
+    <!-- <link rel="stylesheet" href="index.css"> -->
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: cadetblue;
+}
+#container{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: aqua;
+}
+ul li,#form-data button{
+    list-style: none;
+    display: inline-block;
+    margin:0px 10px ;
+    font-size: 1.1em;
+    font-family: 'Courier New', Courier, monospace;
+    /* border: 1px solid black; */
+    padding: 5px 10px;
+    font-weight: 700;
+    background-color: chartreuse;
+    cursor: pointer;
+    border-radius: 5px;
+}
+ul li:hover,#form-data button:hover{
+    color: white;
+    background-color: rgb(62, 62, 216);
+    transition: all .5s ease-in-out;
+}
+ul li a{
+    text-decoration: none;
+    color: black;
+}
+ul li a:hover{
+    color: white;
+}
+#home-content{
+    text-align: center;
+    margin-top: 100px;
+}
+#home-content h1{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: honeydew;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    font-size: 1.7em;
+}
+#home-content h1 u b{
+    font-size: 1em;
+    color: greenyellow;
+}
+#home-content img{
+    margin-top: 20px;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+#form-data{
+    display: flex;
+    /* margin-top:-50px; */
+    justify-content: center;
+    align-items: center;
+}
+#form-data form{
+    width: 100%;
+    height: 100px;
+    /* border: 1px solid black; */
+    text-align: center;
+}
+#form-data input{
+    margin-top: 10px;
+    width: 400px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 1.2em;
+    padding-left: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    outline: none;
+    border: none;
+    background-color: rgb(161, 214, 216);
+    color: black;
+    font-weight: bold;
+    border-bottom: 10x solid rgb(158, 22, 22);
+}
+
+#form-data button{
+    margin-top: 10px;
+}
+/*-------- Code For Profile -----------*/
+.profile-container {
+      display: flex;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+    }
+.user-container {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 5px;
+    background-color: white;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    margin: 10px 0;
+}
+.user-container h2,.user-container p, .user-container button{
+    margin-bottom: 10px;
+}
+img {
+    border-radius: 50%;
+}
+button {
+    background-color: #17A9FD;
+    border: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 2px;;
+    font-size: 1em;
+}
+button:hover {
+    cursor: pointer;
+}
+#users h1:first-child{
+    margin:15px;
+    /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+}
+
+.follow{
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+</style>
+</head>
+<body>
+    <div id="container">
+        <div id="user-btn">
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/help">Help</a></li>
+                <li><a href="/users">Users</a></li>
+            </ul>
+        </div>
+        <div id="login-btn">
+            <ul>
+                <li><a href="/log-out">Log Out</a></li>
+                <!-- <li><a href="/signup">Sign Up</a></li> -->
+            </ul>
+        </div>
+    </div>
+    <div id="users">
+        <h1 style="text-align: center;">Social Media App</h1>
+        <div class="profile-container"></div>
+        <div class="profile-container"></div>
+    </div>
+    <script>
+        let users = []
+    fetch('https://reqres.in/api/users')
+      .then((res) => {
+        return res.json()
+      }).then((res) => {
+        users = res.data
+        displayContent()
+      }).catch((err) => {
+        console.log(err)
+      })
+
+    function displayContent() {
+    //   const container = document.getElementById('profile-container')
+      const container = document.querySelectorAll('.profile-container')
+      container.forEach((cont)=>{
+          users.forEach((user) => {
+            const div = document.createElement('div')
+            div.classList.add('user-container')
+            const img = document.createElement('img')
+            img.src = user.avatar
+            const h2 = document.createElement('h2')
+            h2.innerText = `${user.first_name} ${user.last_name}`
+            const p = document.createElement('p')
+            p.innerHTML = user.email
+            const button = document.createElement('button')
+            button.innerText = 'Follow'
+      
+            div.append(img, h2, p, button)
+            cont.append(div)
+          })
+      })
+    }
+    </script>
+</body>
+</html>
